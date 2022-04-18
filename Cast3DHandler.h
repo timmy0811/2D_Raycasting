@@ -22,6 +22,7 @@ private:
 	SourceEntity* entityRef;
 
 	std::vector<sf::RectangleShape*> rects;
+	std::vector<sf::VertexArray*> texels;
 
 	// Methods
 	int clamp(int val, int min, int max);

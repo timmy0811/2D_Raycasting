@@ -15,8 +15,8 @@ void Game::setTitle()
     float fps = 1.f / currentTime;
     lastTime = currentTime;
 
-    this->window2D->setTitle(window2DTitle + " " + std::to_string(static_cast<int>(fps)));
-    this->window3D->setTitle(window3DTitle);
+    this->window3D->setTitle(window3DTitle + " " + std::to_string(static_cast<int>(fps)));
+    this->window2D->setTitle(window2DTitle);
 }
 
 void Game::initCastHandler()
