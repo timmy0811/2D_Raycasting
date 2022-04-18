@@ -35,7 +35,7 @@ private:
 	std::string window3DTitle = "Window3D";
 
 	sf::Clock clock;
-	float lastTime;
+	float lastTime; // testing
 
 	// Window
 	sf::RenderWindow* window2D;
