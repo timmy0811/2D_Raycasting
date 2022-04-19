@@ -33,16 +33,13 @@ void Cast3DHandler::render(sf::RenderTarget* target)
 	std::cout << this->rects.size() << "   " << this->rects.capacity() << std::endl;
 	for (sf::VertexArray* texel : this->texels) {
 		target->draw(*texel);
-		//delete texel;				IMPORTANT
+		delete texel;
 	}
 }
 
 void Cast3DHandler::translate(sf::RenderTarget* target)
 {
 	sf::Vector2u windowSize = target->getSize();
-
-	/*this->rects.clear();
-	this->rects.shrink_to_fit();*/
 
 	this->texels.clear();
 	this->texels.shrink_to_fit();
@@ -65,18 +62,13 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 		// Texture and color mapping
 		Boundary* ptrToBound = (*rays)[rayIndex]->getIntersectBound();
 		float deltaFactor = (1 - grayscaleFactor * lenghtProj);
-		//sf::RectangleShape* colRect;
 
-		sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
 
 		if (!ptrToBound->isTextured) {
-			/*colRect = new sf::RectangleShape();
-			colRect->setSize(sf::Vector2f(this->colWidth, height));
-			colRect->setPosition(sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY));
-			colRect->setFillColor(this->applyDistanceToRGB(boundColor, deltaFactor));*/
+			sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
 
 			// Texel position and scale
-			(* texel)[0].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY);
+			(*texel)[0].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY);
 			(*texel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY);
 			(*texel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + height);
 			(*texel)[3].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + height);
@@ -88,18 +80,10 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 			}
 
 			this->texels.push_back(texel);
-			//this->rects.push_back(colRect);
 		}
 		else if (height >= TexHeight) {
 			for (int i = 0; i < TexHeight; i++) {
-				// Drawing rects with Texture map
-				/*colRect = new sf::RectangleShape();
-				float rectHeight = height / TexHeight;
-				sf::Vector2f inters = (*rays)[rayIndex]->getIntersect();
-
-				colRect->setPosition(sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + rectHeight * i));
-				colRect->setSize(sf::Vector2f(this->colWidth, rectHeight));
-				colRect->setFillColor(this->applyDistanceToRGB(ptrToBound->getRGB(inters, i), deltaFactor));*/
+				sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
 
 				// Texel position and scale
 				float rectHeight = height / TexHeight;
@@ -118,7 +102,6 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 				}
 
 				this->texels.push_back(texel);
-				//this->rects.push_back(colRect);
 			}
 		}
 
