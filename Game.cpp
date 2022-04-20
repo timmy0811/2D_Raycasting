@@ -29,13 +29,11 @@ void Game::initObjects()
     this->entity = new SourceEntity(60.f, 64, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
 
     // Map construction
-    TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(64, 129), this->textures["BRICKS"]);
+    TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(64, 64), this->textures["BRICKS"]);
     TileObjects::genRect(&this->bounds, sf::Vector2f(300.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Red);
     TileObjects::genRect(&this->bounds, sf::Vector2f(500.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Blue);
 
     TileObjects::genRect(&this->bounds, sf::Vector2f(0.f, 0.f), sf::Vector2f(static_cast<float>(this->window2D->getSize().x), static_cast<float>(this->window2D->getSize().y)), sf::Color::Magenta);
-
-
     }
 
 sf::Color Game::randColor()
