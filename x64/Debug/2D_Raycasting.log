@@ -1,9 +1,2 @@
-﻿  Boundary.cpp
-  Cast3DHandler.cpp
-  Game.cpp
-  Ray.cpp
-  Ressources.cpp
-  SourceEntity.cpp
-  main.cpp
-  Generating Code...
+﻿  Game.cpp
   2D_Raycasting.vcxproj -> C:\Git\2D_Raycasting\x64\Debug\2D_Raycasting.exe

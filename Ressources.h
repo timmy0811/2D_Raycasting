@@ -12,7 +12,7 @@ struct Res {
 	//const char* textureString[] = {"BRICKS", "EMPTY"};
 
 	// Variables
-	static const int unitPerPixel = 4;		// defines the pixel in world units of one texel
+	static const int unitPerPixel = 5;		// defines the pixel in world units of one texel
 
 	// Functions
 	static void initTextures(std::map<std::string, sf::Texture*>* textures);

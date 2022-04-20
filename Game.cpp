@@ -11,9 +11,7 @@ Game::Game() {
 
 void Game::setTitle()
 {
-    float currentTime = clock.restart().asSeconds();
-    float fps = 1.f / currentTime;
-    lastTime = currentTime;
+    float fps = 1.f / this->dt;
 
     this->window3D->setTitle(window3DTitle + " " + std::to_string(static_cast<int>(fps)));
     this->window2D->setTitle(window2DTitle);
@@ -26,10 +24,10 @@ void Game::initCastHandler()
 
 void Game::initObjects()
 {
-    this->entity = new SourceEntity(60.f, 64, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
+    this->entity = new SourceEntity(60.f, 128, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
 
     // Map construction
-    TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(64, 64), this->textures["BRICKS"]);
+    TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(80, 80), this->textures["BRICKS"]);
     TileObjects::genRect(&this->bounds, sf::Vector2f(300.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Red);
     TileObjects::genRect(&this->bounds, sf::Vector2f(500.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Blue);
 
@@ -91,11 +89,11 @@ void Game::initWindow() {
 
     // Window for 2D Raycasting
     this->window2D = new sf::RenderWindow(this->videoMode2D, this->window2DTitle, sf::Style::Titlebar | sf::Style::Close);
-    //this->window2D->setFramerateLimit(144);
+    this->window2D->setFramerateLimit(30);
 
     // Window for 3D Rendering
     this->window3D = new sf::RenderWindow(this->videoMode3D, this->window3DTitle, sf::Style::Titlebar | sf::Style::Close);
-    //this->window3D->setFramerateLimit(144);
+    this->window3D->setFramerateLimit(30);
 }
 
 // Accessors
