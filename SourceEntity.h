@@ -33,7 +33,7 @@ public:
 	int resolution;
 
 	// Methods
-	void move(Move_Dir dir, float angle, int MovementSpeed);
+	void move(Move_Dir dir, float angle, float MovementSpeed);
 	std::vector<Ray*>* getRayCollection();
 
 	void update(sf::RenderTarget* target);

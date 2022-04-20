@@ -32,6 +32,7 @@ public:
 
 	sf::Vector2f intersect();
 	void addPosition(sf::Vector2i position);
+	void setPosition(sf::Vector2i position);
 
 	float getLenght();
 	float getAngleOffset();

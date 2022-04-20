@@ -125,31 +125,33 @@ void Game::pollEvents() {
                 this->window2D->close();
                 this->window3D->close();
             }
-            if (this->ev.key.code == sf::Keyboard::Left) {
-                this->entity->move(Move_Dir::LEFT, 0.f, MOVEMENTESPEED);
-            }
-            if (this->ev.key.code == sf::Keyboard::Right) {
-                this->entity->move(Move_Dir::RIGHT, 0.f, MOVEMENTESPEED);
-            }
-            if (this->ev.key.code == sf::Keyboard::Up) {
-                this->entity->move(Move_Dir::UP, 0.f, MOVEMENTESPEED);
-            }
-            if (this->ev.key.code == sf::Keyboard::Down) {
-                this->entity->move(Move_Dir::DOWN, 0.f, MOVEMENTESPEED);
-            }
-            if (this->ev.key.code == sf::Keyboard::A) {
-                this->entity->move(Move_Dir::DEFAULT, -ROTATIONSPEED, 0);
-            }
-            if (this->ev.key.code == sf::Keyboard::D) {
-                this->entity->move(Move_Dir::DEFAULT, ROTATIONSPEED, 0);
-            }
             break;
         }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        this->entity->move(Move_Dir::LEFT, 0.f, MOVEMENTESPEED * this->dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        this->entity->move(Move_Dir::RIGHT, 0.f, MOVEMENTESPEED * this->dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        this->entity->move(Move_Dir::UP, 0.f, MOVEMENTESPEED * this->dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        this->entity->move(Move_Dir::DOWN, 0.f, MOVEMENTESPEED * this->dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        this->entity->move(Move_Dir::DEFAULT, -ROTATIONSPEED * this->dt, 0);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        this->entity->move(Move_Dir::DEFAULT, ROTATIONSPEED * this->dt, 0);
     }
 }
 
 // main update method
 void Game::update() {
+    this->dt = clock.restart().asSeconds();
     this->setTitle();
     this->pollEvents();
 

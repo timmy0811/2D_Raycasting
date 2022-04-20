@@ -15,16 +15,12 @@
 #include "Cast3DHandler.h"
 #include "Ressources.h"
 
-#define MOVEMENTESPEED 6
-#define ROTATIONSPEED 5
+#define MOVEMENTESPEED 100
+#define ROTATIONSPEED 45
 
-/*
-	Game depending functions
-*/
 
 /* TODO
-*	Screen Buffer, anstatt mit rects aud aktuellen screen
-*		-> Image.create() und darauf pixel setzen, dann window.draw(image)
+*	-
 */
 
 class Game
@@ -43,6 +39,8 @@ private:
 	sf::Event ev;
 	sf::VideoMode videoMode2D;
 	sf::VideoMode videoMode3D;
+
+	float dt;
 
 	std::map<std::string, sf::Texture*> textures;
 

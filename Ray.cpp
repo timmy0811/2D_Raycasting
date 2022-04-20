@@ -76,6 +76,14 @@ void Ray::addPosition(sf::Vector2i position)
 	this->vertex[0] = sf::Vertex(this->position, this->color);
 }
 
+void Ray::setPosition(sf::Vector2i position)
+{
+	this->position.x = static_cast<float>(position.x);
+	this->position.y = static_cast<float>(position.y);
+
+	this->vertex[0] = sf::Vertex(this->position, this->color);
+}
+
 float Ray::getLenght()
 {
 	return this->lenght;

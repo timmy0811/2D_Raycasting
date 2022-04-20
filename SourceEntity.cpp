@@ -46,10 +46,10 @@ SourceEntity::~SourceEntity()
     }
 }
 
-void SourceEntity::move(Move_Dir dir, float angle, int MovementSpeed)
+void SourceEntity::move(Move_Dir dir, float angle, float MovementSpeed)
 {
     this->viewAngle += angle;
-    sf::Vector2i dirVector;
+    sf::Vector2f dirVector;
     float radian = 0;
 
     switch (dir) {
@@ -67,11 +67,16 @@ void SourceEntity::move(Move_Dir dir, float angle, int MovementSpeed)
         break;
     }
 
-    dirVector.x = static_cast<int>(cos(radian) * MovementSpeed);
-    dirVector.y = static_cast<int>(sin(radian) * MovementSpeed);
+    dirVector.x = static_cast<float>(cos(radian) * MovementSpeed);
+    dirVector.y = static_cast<float>(sin(radian) * MovementSpeed);
+
+    this->position.x += dirVector.x;
+    this->position.y += dirVector.y;
 
     for (auto ray : this->rays) {
-        ray->addPosition(dirVector);
+        if (static_cast<int>(angle) == 0) {
+            ray->setPosition(sf::Vector2i(static_cast<int>(this->position.x), static_cast<int>(this->position.y)));
+        }
     }
 }
 
