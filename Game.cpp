@@ -14,7 +14,7 @@ void Game::setTitle()
     float fps = 1.f / this->dt;
 
     this->window3D->setTitle(window3DTitle + " " + std::to_string(static_cast<int>(fps)));
-    this->window2D->setTitle(window2DTitle);
+    if (SHOW2D) this->window2D->setTitle(window2DTitle);
 }
 
 void Game::initCastHandler()
@@ -31,7 +31,7 @@ void Game::initObjects()
     TileObjects::genRect(&this->bounds, sf::Vector2f(300.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Red);
     TileObjects::genRect(&this->bounds, sf::Vector2f(500.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Blue);
 
-    TileObjects::genRect(&this->bounds, sf::Vector2f(0.f, 0.f), sf::Vector2f(static_cast<float>(this->window2D->getSize().x), static_cast<float>(this->window2D->getSize().y)), sf::Color::Magenta);
+    TileObjects::genRect(&this->bounds, sf::Vector2f(0.f, 0.f), sf::Vector2f(static_cast<float>(WIDTH2D), static_cast<float>(HEIGHT2D)), sf::Color::Magenta);
     }
 
 sf::Color Game::randColor()
@@ -50,7 +50,7 @@ float Game::randfloat(int max, int min)
 
 // Destructors
 Game::~Game() {
-    delete this->window2D;
+    if (SHOW2D) delete this->window2D;
     delete this->entity;
     delete this->handler3D;
 
@@ -81,16 +81,18 @@ void Game::initVariables() {
 
 // Init game window
 void Game::initWindow() {
-    this->videoMode2D.height = 1000;
-    this->videoMode2D.width = 1200;
+    this->videoMode2D.height = HEIGHT2D;
+    this->videoMode2D.width = WIDTH2D;
 
     this->videoMode3D.height = 1000;
     this->videoMode3D.width = 1280;
 
     // Window for 2D Raycasting
-    this->window2D = new sf::RenderWindow(this->videoMode2D, this->window2DTitle, sf::Style::Titlebar | sf::Style::Close);
-    this->window2D->setFramerateLimit(30);
-
+    if (SHOW2D) {
+        this->window2D = new sf::RenderWindow(this->videoMode2D, this->window2DTitle, sf::Style::Titlebar | sf::Style::Close);
+        this->window2D->setFramerateLimit(30);
+    }
+    
     // Window for 3D Rendering
     this->window3D = new sf::RenderWindow(this->videoMode3D, this->window3DTitle, sf::Style::Titlebar | sf::Style::Close);
     this->window3D->setFramerateLimit(30);
@@ -100,7 +102,7 @@ void Game::initWindow() {
 
 // Check if game is still running
 const bool Game::getWindowIsOpen() const {
-    return this->window2D->isOpen() && this->window3D->isOpen();
+    return this->window3D->isOpen();
 }
 
 // Functions
@@ -113,12 +115,12 @@ void Game::pollEvents() {
         switch (this->ev.type)
         {
         case sf::Event::Closed:
-            this->window2D->close();
+            if (SHOW2D) this->window2D->close();
             this->window3D->close();
             break;
         case sf::Event::KeyPressed:
             if (this->ev.key.code == sf::Keyboard::Escape) {
-                this->window2D->close();
+                if(SHOW2D) this->window2D->close();
                 this->window3D->close();
             }
             break;
@@ -151,7 +153,7 @@ void Game::update() {
     this->setTitle();
     this->pollEvents();
 
-    this->entity->update(this->window2D);
+    this->entity->update(sf::Vector2f(WIDTH2D, HEIGHT2D));
     this->handler3D->translate(this->window3D);
 }
 
@@ -161,15 +163,19 @@ void  Game::render() {
         Renders game objects to screen
     */
 
-    this->window2D->clear(sf::Color(0, 0, 0, 255));
     this->window3D->clear(sf::Color(0, 0, 0, 255));
 
-    this->entity->render(this->window2D);
-    this->renderBounds(this->window2D);
+    if (SHOW2D) {
+        this->window2D->clear(sf::Color(0, 0, 0, 255));
 
+        this->entity->render(this->window2D);
+        this->renderBounds(this->window2D);
+
+        this->window2D->display();
+    }
+    
     this->handler3D->render(this->window3D);
 
-    this->window2D->display();
     this->window3D->display();
 }
 

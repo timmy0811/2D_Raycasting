@@ -109,7 +109,7 @@ Boundary* Ray::getIntersectBound()
 	return this->intersectBound;
 }
 
-void Ray::update(sf::RenderTarget* target, float angleOffset)
+void Ray::update(sf::Vector2f frameDim, float angleOffset)
 {
 	float radian = (this->angle + angleOffset) * static_cast<float>(M_PI) / 180.f;
 
@@ -122,13 +122,13 @@ void Ray::update(sf::RenderTarget* target, float angleOffset)
 	sf::Vector2f endPoint = this->intersect();
 	if (endPoint.x == -1.f && endPoint.y == -1.f) {
 		endPoint = this->position;
-		this->lenght = static_cast<float>(sqrt(target->getSize().x * target->getSize().x + target->getSize().y * target->getSize().y));
+		this->lenght = static_cast<float>(sqrt(frameDim.x * frameDim.x + frameDim.y * frameDim.y));
 		this->pointsOutside = true;
 		do {
 			endPoint.x += this->direction.x;
 			endPoint.y += this->direction.y;
-		} while (endPoint.x <= target->getSize().x && endPoint.x >= 0
-			&& endPoint.y <= target->getSize().y && endPoint.y >= 0);
+		} while (endPoint.x <= frameDim.x && endPoint.x >= 0
+			&& endPoint.y <= frameDim.y && endPoint.y >= 0);
 	}
 	else this->pointsOutside = false;
 	this->vertex[1] = sf::Vertex(endPoint, this->color);

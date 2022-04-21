@@ -21,7 +21,7 @@ private:
 
 	// Methods
 	void setupRays(sf::Vector2f position, int rays, std::vector<Boundary*>* bounds, sf::Color color);
-	void updateRays(sf::RenderTarget* target);
+	void updateRays(sf::Vector2f frameDim);
 	void renderRays(sf::RenderTarget* target);
 
 public:
@@ -36,7 +36,7 @@ public:
 	void move(Move_Dir dir, float angle, float MovementSpeed);
 	std::vector<Ray*>* getRayCollection();
 
-	void update(sf::RenderTarget* target);
+	void update(sf::Vector2f frameDim);
 	void render(sf::RenderTarget* target);
 };
 

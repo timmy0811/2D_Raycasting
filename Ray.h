@@ -40,7 +40,7 @@ public:
 	bool getOutside();
 	Boundary* getIntersectBound();
 
-	void update(sf::RenderTarget* target, float angle);
+	void update(sf::Vector2f frameDim, float angle);
 	void render(sf::RenderTarget* target);
 };
 

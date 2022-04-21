@@ -30,7 +30,6 @@ Cast3DHandler::~Cast3DHandler()
 
 void Cast3DHandler::render(sf::RenderTarget* target)
 {
-	std::cout << this->rects.size() << "   " << this->rects.capacity() << std::endl;
 	for (sf::VertexArray* texel : this->texels) {
 		target->draw(*texel);
 		delete texel;

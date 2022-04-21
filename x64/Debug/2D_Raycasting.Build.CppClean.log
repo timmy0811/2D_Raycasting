@@ -1,12 +1,3 @@
-c:\users\timms\source\repos\2d_raycasting\x64\debug\vc143.pdb
-c:\users\timms\source\repos\2d_raycasting\x64\debug\vc143.idb
-c:\users\timms\source\repos\2d_raycasting\x64\debug\main.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\game.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\cast3dhandler.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\sourceentity.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\ressources.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\ray.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\boundary.obj
 c:\git\2d_raycasting\x64\debug\vc143.pdb
 c:\git\2d_raycasting\x64\debug\vc143.idb
 c:\git\2d_raycasting\x64\debug\sourceentity.obj
@@ -16,13 +7,9 @@ c:\git\2d_raycasting\x64\debug\main.obj
 c:\git\2d_raycasting\x64\debug\game.obj
 c:\git\2d_raycasting\x64\debug\cast3dhandler.obj
 c:\git\2d_raycasting\x64\debug\boundary.obj
-c:\users\timms\source\repos\2d_raycasting\x64\debug\2d_raycasting.exe
-c:\users\timms\source\repos\2d_raycasting\x64\debug\2d_raycasting.ilk
-c:\users\timms\source\repos\2d_raycasting\x64\debug\2d_raycasting.pdb
-c:\git\2d_raycasting\x64\debug\2d_raycasting.exe
 c:\git\2d_raycasting\x64\debug\2d_raycasting.ilk
+c:\git\2d_raycasting\x64\debug\2d_raycasting.exe
 c:\git\2d_raycasting\x64\debug\2d_raycasting.pdb
-c:\git\2d_raycasting\x64\debug\cast3dhandler.obj.enc
 c:\git\2d_raycasting\x64\debug\2d_raycasting.tlog\cl.command.1.tlog
 c:\git\2d_raycasting\x64\debug\2d_raycasting.tlog\cl.read.1.tlog
 c:\git\2d_raycasting\x64\debug\2d_raycasting.tlog\cl.write.1.tlog

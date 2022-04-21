@@ -18,6 +18,11 @@
 #define MOVEMENTESPEED 100
 #define ROTATIONSPEED 45
 
+#define SHOW2D false
+
+// Defines also the worlds global dimensions
+#define WIDTH2D 1200	
+#define HEIGHT2D 1000
 
 /* TODO
 *	-

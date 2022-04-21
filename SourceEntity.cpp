@@ -17,10 +17,10 @@ void SourceEntity::setupRays(sf::Vector2f position, int rays, std::vector<Bounda
     }
 }
 
-void SourceEntity::updateRays(sf::RenderTarget* target)
+void SourceEntity::updateRays(sf::Vector2f frameDim)
 {
     for (auto ray : this->rays) {
-        ray->update(target, this->viewAngle);
+        ray->update(frameDim, this->viewAngle);
     }
 }
 
@@ -85,9 +85,9 @@ std::vector<Ray*>* SourceEntity::getRayCollection()
     return &this->rays;
 }
 
-void SourceEntity::update(sf::RenderTarget* target)
+void SourceEntity::update(sf::Vector2f frameDim)
 {
-    this->updateRays(target);
+    this->updateRays(frameDim);
 }
 
 void SourceEntity::render(sf::RenderTarget* target)
