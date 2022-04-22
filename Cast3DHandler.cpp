@@ -16,21 +16,32 @@ sf::Color Cast3DHandler::applyDistanceToRGB(sf::Color color, float deltaFactor)
 	return sf::Color(R, G, B, 255);
 }
 
-Cast3DHandler::Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight)
-	:entityRef(entity), colHeight(0), wallHeight(wallHeight)
+Cast3DHandler::Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight, int* virtualHeight, int floorCastingRes)
+	:entityRef(entity), colHeight(0), wallHeight(wallHeight), virtualHeight(virtualHeight), floorCastingRes(floorCastingRes)
 {
 	this->colWidth = window->getSize().x / static_cast<float>(entity->resolution);
 }
 
 Cast3DHandler::~Cast3DHandler()
 {
-	this->rects.clear();
-	this->rects.shrink_to_fit();
+	this->floorVertices.clear();
+	this->floorVertices.shrink_to_fit();
+
+	this->wallVertices.clear();
+	this->wallVertices.shrink_to_fit();
 }
 
-void Cast3DHandler::render(sf::RenderTarget* target)
+void Cast3DHandler::renderWalls(sf::RenderTarget* target)
 {
-	for (sf::VertexArray* texel : this->texels) {
+	for (sf::VertexArray* texel : this->wallVertices) {
+		target->draw(*texel);
+		delete texel;
+	}
+}
+
+void Cast3DHandler::renderFloor(sf::RenderTarget* target)
+{
+	for (sf::VertexArray* texel : this->floorVertices) {
 		target->draw(*texel);
 		delete texel;
 	}
@@ -40,8 +51,11 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 {
 	sf::Vector2u windowSize = target->getSize();
 
-	this->texels.clear();
-	this->texels.shrink_to_fit();
+	this->wallVertices.clear();
+	this->wallVertices.shrink_to_fit();
+
+	this->floorVertices.clear();
+	this->floorVertices.shrink_to_fit();
 
 	float maxDistance = static_cast<float>(sqrt(windowSize.x * windowSize.x + windowSize.y * windowSize.y));
 	float grayscaleFactor = 1.f / maxDistance;
@@ -78,7 +92,7 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 				(*texel)[i].color = col;
 			}
 
-			this->texels.push_back(texel);
+			this->wallVertices.push_back(texel);
 		}
 		else if (height >= TexHeight) {
 			for (int i = 0; i < TexHeight; i++) {
@@ -100,9 +114,48 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 					(*texel)[j].color = col;
 				}
 
-				this->texels.push_back(texel);
+				this->wallVertices.push_back(texel);
 			}
 		}
 
+		// floor casting
+		int upperFloorEdge = sizeOffsetY + height;
+
+		if (upperFloorEdge < windowSize.y) {
+			// Calculate the needed rays for col
+			int floorTexelHeight = (windowSize.y / 2) / floorCastingRes;
+			int colRays = (windowSize.y - upperFloorEdge) / floorTexelHeight;
+			if (colRays <= 0) colRays = 1;
+
+			// Ceil pixel placement to upper multiple of the rows height
+			assert(floorTexelHeight);
+			int isPositive = (int)(upperFloorEdge >= 0);
+			int startAt = (((upperFloorEdge + isPositive * (floorTexelHeight - 1)) / floorTexelHeight) * floorTexelHeight) - floorTexelHeight;
+
+			// Iterate every ray in col
+			for (int floorIndexY = 0; floorIndexY < colRays + 2; floorIndexY++) {
+				if (startAt + floorTexelHeight * floorIndexY > windowSize.y) break;
+
+				sf::VertexArray* floorTexel = new sf::VertexArray(sf::Quads, 4);
+
+				(*floorTexel)[0].position = sf::Vector2f(this->colWidth * rayIndex, startAt + floorTexelHeight * floorIndexY);
+				(*floorTexel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, startAt + floorTexelHeight * floorIndexY);
+				(*floorTexel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, startAt + floorTexelHeight * floorIndexY + floorTexelHeight);
+				(*floorTexel)[3].position = sf::Vector2f(this->colWidth * rayIndex, startAt + floorTexelHeight * floorIndexY + floorTexelHeight);
+
+				int r = rand() % 255;
+				int g = rand() % 255;
+				int b = rand() % 255;
+
+				sf::Color col = sf::Color(r, g, b, 255);
+
+				for (int j = 0; j < 4; j++) {
+					(*floorTexel)[j].color = col;
+				}
+
+				this->floorVertices.push_back(floorTexel);
+			}
+		}
+		
 	}
 }

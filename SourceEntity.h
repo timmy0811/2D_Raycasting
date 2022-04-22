@@ -37,6 +37,6 @@ public:
 	std::vector<Ray*>* getRayCollection();
 
 	void update(sf::Vector2f frameDim);
-	void render(sf::RenderTarget* target);
+	void renderWalls(sf::RenderTarget* target);
 };
 

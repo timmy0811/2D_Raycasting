@@ -27,7 +27,7 @@ void SourceEntity::updateRays(sf::Vector2f frameDim)
 void SourceEntity::renderRays(sf::RenderTarget* target)
 {
     for (auto ray : this->rays) {
-        ray->render(target);
+        ray->renderWalls(target);
     }
 }
 
@@ -90,7 +90,7 @@ void SourceEntity::update(sf::Vector2f frameDim)
     this->updateRays(frameDim);
 }
 
-void SourceEntity::render(sf::RenderTarget* target)
+void SourceEntity::renderWalls(sf::RenderTarget* target)
 {
     this->renderRays(target);
 }

@@ -24,6 +24,8 @@
 #define WIDTH2D 1200	
 #define HEIGHT2D 1000
 
+#define FLOORRES 16
+
 /* TODO
 *	-
 */
@@ -60,6 +62,7 @@ private:
 	float randfloat(int max, int min = 0);
 
 	// Game Logic
+	int sourceHeight;
 
 	// Game objects
 	Cast3DHandler* handler3D;
@@ -86,7 +89,7 @@ public:
 	// Functions
 	void pollEvents();
 	void update();
-	void render();
+	void renderWalls();
 
 	void renderBounds(sf::RenderTarget* target);
 };

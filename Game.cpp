@@ -19,12 +19,12 @@ void Game::setTitle()
 
 void Game::initCastHandler()
 {
-    this->handler3D = new Cast3DHandler(this->entity, this->window3D, 100.f);
+    this->handler3D = new Cast3DHandler(this->entity, this->window3D, 100.f, &this->sourceHeight, FLOORRES);
 }
 
 void Game::initObjects()
 {
-    this->entity = new SourceEntity(60.f, 128, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
+    this->entity = new SourceEntity(60.f, 64, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
 
     // Map construction
     TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(80, 80), this->textures["BRICKS"]);
@@ -96,6 +96,8 @@ void Game::initWindow() {
     // Window for 3D Rendering
     this->window3D = new sf::RenderWindow(this->videoMode3D, this->window3DTitle, sf::Style::Titlebar | sf::Style::Close);
     this->window3D->setFramerateLimit(30);
+
+    this->sourceHeight = static_cast<int>(this->window3D->getSize().y / 2);
 }
 
 // Accessors
@@ -158,7 +160,7 @@ void Game::update() {
 }
 
 // main render method
-void  Game::render() {
+void  Game::renderWalls() {
     /*
         Renders game objects to screen
     */
@@ -168,13 +170,14 @@ void  Game::render() {
     if (SHOW2D) {
         this->window2D->clear(sf::Color(0, 0, 0, 255));
 
-        this->entity->render(this->window2D);
+        this->entity->renderWalls(this->window2D);
         this->renderBounds(this->window2D);
 
         this->window2D->display();
     }
     
-    this->handler3D->render(this->window3D);
+    this->handler3D->renderFloor(this->window3D);
+    this->handler3D->renderWalls(this->window3D);
 
     this->window3D->display();
 }

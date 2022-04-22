@@ -12,7 +12,7 @@ int main()
         game.update();
 
         // Render Image
-        game.render();
+        game.renderWalls();
     }
 
     return 0;

@@ -6,6 +6,8 @@
 
 #include <vector>
 #include <iostream>
+#include <math.h>
+#include <assert.h>
 
 #include "SourceEntity.h"
 
@@ -19,10 +21,14 @@ private:
 	float colHeight;
 	float wallHeight;
 
+	int* virtualHeight;
+	int floorCastingRes;
+
 	SourceEntity* entityRef;
 
-	std::vector<sf::RectangleShape*> rects;
-	std::vector<sf::VertexArray*> texels;
+	std::vector<sf::VertexArray*> wallVertices;
+	std::vector<sf::VertexArray*> floorVertices;
+
 
 	// Methods
 	int clamp(int val, int min, int max);
@@ -30,11 +36,12 @@ private:
 
 public:
 	// Constructor
-	Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight);
+	Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight, int* virtualHeight, int floorCastingRes);
 	~Cast3DHandler();
 
 	// Methods
 	void translate(sf::RenderTarget* target);
-	void render(sf::RenderTarget* target);
+	void renderWalls(sf::RenderTarget* target);
+	void renderFloor(sf::RenderTarget* target);
 };
 
