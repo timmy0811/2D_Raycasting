@@ -134,7 +134,7 @@ void Ray::update(sf::Vector2f frameDim, float angleOffset)
 	this->vertex[1] = sf::Vertex(endPoint, this->color);
 }
 
-void Ray::renderWalls(sf::RenderTarget* target)
+void Ray::render(sf::RenderTarget* target)
 {
 	target->draw(vertex, 2, sf::Lines);
 }

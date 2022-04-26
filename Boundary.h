@@ -36,6 +36,6 @@ public:
 	sf::Color getRGB(sf::Vector2f pointOfIntersection, int indexPixelFromTop);
 
 	// Methods
-	void render(sf::RenderTarget* target);
+	void render2D(sf::RenderTarget* target);
 };
 

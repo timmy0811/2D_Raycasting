@@ -10,6 +10,7 @@
 #include <SFML/System.hpp>
 
 #include "Boundary.h"
+#include "Floor.h"
 #include "Ray.h"
 #include "SourceEntity.h"
 #include "Cast3DHandler.h"
@@ -18,13 +19,13 @@
 #define MOVEMENTESPEED 100
 #define ROTATIONSPEED 45
 
-#define SHOW2D false
+#define SHOW2D true
 
 // Defines also the worlds global dimensions
 #define WIDTH2D 1200	
 #define HEIGHT2D 1000
 
-#define FLOORRES 16
+#define FLOORRES 32
 
 /* TODO
 *	-
@@ -67,6 +68,8 @@ private:
 	// Game objects
 	Cast3DHandler* handler3D;
 	SourceEntity* entity;
+
+	std::vector<Floor*> floorTiles;
 	std::vector<Boundary*> bounds;
 
 	struct TileObjects {
@@ -89,8 +92,10 @@ public:
 	// Functions
 	void pollEvents();
 	void update();
-	void renderWalls();
+
+	void render();
 
 	void renderBounds(sf::RenderTarget* target);
+	void renderFloor(sf::RenderTarget* target);
 };
 

@@ -1,4 +1,38 @@
-﻿  Game.cpp
-  main.cpp
-  Generating Code...
+﻿  Cast3DHandler.cpp
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(146,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(169,6): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(168,9): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(167,9): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(195,81): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(196,98): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(197,131): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Git\2D_Raycasting\Cast3DHandler.cpp(198,114): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   2D_Raycasting.vcxproj -> C:\Git\2D_Raycasting\x64\Debug\2D_Raycasting.exe

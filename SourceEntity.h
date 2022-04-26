@@ -34,9 +34,13 @@ public:
 
 	// Methods
 	void move(Move_Dir dir, float angle, float MovementSpeed);
+
 	std::vector<Ray*>* getRayCollection();
+	sf::Vector2f getPosition();
+	float getViewAngle();
+	float getFOV();
 
 	void update(sf::Vector2f frameDim);
-	void renderWalls(sf::RenderTarget* target);
+	void render(sf::RenderTarget* target);
 };
 

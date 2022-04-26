@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="Cast3DHandler.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ray.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="Cast3DHandler.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Ressources.h" />

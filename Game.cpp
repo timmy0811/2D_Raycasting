@@ -19,19 +19,25 @@ void Game::setTitle()
 
 void Game::initCastHandler()
 {
-    this->handler3D = new Cast3DHandler(this->entity, this->window3D, 100.f, &this->sourceHeight, FLOORRES);
+    this->handler3D = new Cast3DHandler(this->entity, this->window3D, 100.f, &this->sourceHeight, FLOORRES, &this->floorTiles);
 }
 
 void Game::initObjects()
 {
-    this->entity = new SourceEntity(60.f, 64, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
+    this->entity = new SourceEntity(60.f, 128, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
 
     // Map construction
+    // Bounds
     TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(80, 80), this->textures["BRICKS"]);
+    TileObjects::genRect(&this->bounds, sf::Vector2f(700.f, 500.f), sf::Vector2f(80, 80), this->textures["COBBLE"]);
+
     TileObjects::genRect(&this->bounds, sf::Vector2f(300.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Red);
     TileObjects::genRect(&this->bounds, sf::Vector2f(500.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Blue);
 
-    TileObjects::genRect(&this->bounds, sf::Vector2f(0.f, 0.f), sf::Vector2f(static_cast<float>(WIDTH2D), static_cast<float>(HEIGHT2D)), sf::Color::Magenta);
+    //TileObjects::genRect(&this->bounds, sf::Vector2f(0.f, 0.f), sf::Vector2f(static_cast<float>(WIDTH2D), static_cast<float>(HEIGHT2D)), sf::Color::Magenta);
+
+    // Floor
+    this->floorTiles.push_back(new Floor(sf::Vector2f(400.f, 400.f), sf::Vector2f(WIDTH2D / 4, HEIGHT2D / 4), this->textures["DARK_PLANK"]));
     }
 
 sf::Color Game::randColor()
@@ -97,7 +103,9 @@ void Game::initWindow() {
     this->window3D = new sf::RenderWindow(this->videoMode3D, this->window3DTitle, sf::Style::Titlebar | sf::Style::Close);
     this->window3D->setFramerateLimit(30);
 
-    this->sourceHeight = static_cast<int>(this->window3D->getSize().y / 2);
+    //this->sourceHeight = static_cast<int>(this->window3D->getSize().y / 2);
+    this->sourceHeight = -75.f;
+
 }
 
 // Accessors
@@ -147,6 +155,16 @@ void Game::pollEvents() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         this->entity->move(Move_Dir::DEFAULT, ROTATIONSPEED * this->dt, 0);
     }
+
+    // Increase virtual height
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
+        this->sourceHeight += 1;
+        std::cout << this->sourceHeight << std::endl;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+        this->sourceHeight -= 1;
+        std::cout << this->sourceHeight << std::endl;
+    }
 }
 
 // main update method
@@ -160,24 +178,25 @@ void Game::update() {
 }
 
 // main render method
-void  Game::renderWalls() {
+void  Game::render() {
     /*
         Renders game objects to screen
     */
 
-    this->window3D->clear(sf::Color(0, 0, 0, 255));
+    this->window3D->clear(sf::Color::White);
 
     if (SHOW2D) {
         this->window2D->clear(sf::Color(0, 0, 0, 255));
 
-        this->entity->renderWalls(this->window2D);
+        this->renderFloor(this->window2D);
+        this->entity->render(this->window2D);
         this->renderBounds(this->window2D);
 
         this->window2D->display();
     }
     
     this->handler3D->renderFloor(this->window3D);
-    this->handler3D->renderWalls(this->window3D);
+    this->handler3D->render(this->window3D);
 
     this->window3D->display();
 }
@@ -185,7 +204,14 @@ void  Game::renderWalls() {
 void Game::renderBounds(sf::RenderTarget* target)
 {
     for (auto boundary : this->bounds) {
-        boundary->render(target);
+        boundary->render2D(target);
+    }
+}
+
+void Game::renderFloor(sf::RenderTarget* target)
+{
+    for (Floor* tile : this->floorTiles) {
+        tile->render2D(target);
     }
 }
 
@@ -208,4 +234,9 @@ void Game::TileObjects::genRect(std::vector<Boundary*>* bounds, sf::Vector2f pos
 void Game::TileObjects::genWall(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f pointA, sf::Vector2f pointB, sf::Color color)
 {
     bounds->push_back(new Boundary(pointA, pointB, color));
+}
+
+void Game::TileObjects::genWall(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f pointA, sf::Vector2f pointB, sf::Texture* texture)
+{
+    bounds->push_back(new Boundary(pointA, pointB, texture));
 }

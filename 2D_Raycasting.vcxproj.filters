@@ -45,6 +45,9 @@
     <ClCompile Include="Ressources.cpp">
       <Filter>Quelldateien\Imports</Filter>
     </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Ressources.h">
       <Filter>Headerdateien\Imports</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

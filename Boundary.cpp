@@ -21,7 +21,7 @@ Boundary::Boundary(sf::Vector2f pointA, sf::Vector2f pointB, sf::Texture* textur
 	this->isTextured = true;
 }
 
-void Boundary::render(sf::RenderTarget* target)
+void Boundary::render2D(sf::RenderTarget* target)
 {
 	target->draw(vertex, 2, sf::Lines);
 }

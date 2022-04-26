@@ -41,6 +41,6 @@ public:
 	Boundary* getIntersectBound();
 
 	void update(sf::Vector2f frameDim, float angle);
-	void renderWalls(sf::RenderTarget* target);
+	void render(sf::RenderTarget* target);
 };
 

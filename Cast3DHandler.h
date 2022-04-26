@@ -10,6 +10,7 @@
 #include <assert.h>
 
 #include "SourceEntity.h"
+#include "Floor.h"
 
 # define M_PI           3.14159265358979323846  /* pi */
 
@@ -21,6 +22,8 @@ private:
 	float colHeight;
 	float wallHeight;
 
+	int minProjAngle;
+
 	int* virtualHeight;
 	int floorCastingRes;
 
@@ -29,19 +32,22 @@ private:
 	std::vector<sf::VertexArray*> wallVertices;
 	std::vector<sf::VertexArray*> floorVertices;
 
+	std::vector<Floor*>* floorRef;
 
 	// Methods
 	int clamp(int val, int min, int max);
 	sf::Color applyDistanceToRGB(sf::Color color, float deltaFactor);
 
+	Floor* getIntersectFloorTile(sf::Vector3f worldPos);
+
 public:
 	// Constructor
-	Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight, int* virtualHeight, int floorCastingRes);
+	Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight, int* virtualHeight, int floorCastingRes, std::vector<Floor*>* floorRef);
 	~Cast3DHandler();
 
 	// Methods
 	void translate(sf::RenderTarget* target);
-	void renderWalls(sf::RenderTarget* target);
+	void render(sf::RenderTarget* target);
 	void renderFloor(sf::RenderTarget* target);
 };
 

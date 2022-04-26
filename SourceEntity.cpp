@@ -27,7 +27,7 @@ void SourceEntity::updateRays(sf::Vector2f frameDim)
 void SourceEntity::renderRays(sf::RenderTarget* target)
 {
     for (auto ray : this->rays) {
-        ray->renderWalls(target);
+        ray->render(target);
     }
 }
 
@@ -78,6 +78,9 @@ void SourceEntity::move(Move_Dir dir, float angle, float MovementSpeed)
             ray->setPosition(sf::Vector2i(static_cast<int>(this->position.x), static_cast<int>(this->position.y)));
         }
     }
+
+    if (this->viewAngle > 360.f) this->viewAngle = 0.f;
+    else if (this->viewAngle < 0.f) this->viewAngle = 360.f;
 }
 
 std::vector<Ray*>* SourceEntity::getRayCollection()
@@ -85,12 +88,27 @@ std::vector<Ray*>* SourceEntity::getRayCollection()
     return &this->rays;
 }
 
+sf::Vector2f SourceEntity::getPosition()
+{
+    return this->position;
+}
+
+float SourceEntity::getViewAngle()
+{
+    return this->viewAngle;
+}
+
+float SourceEntity::getFOV()
+{
+    return this->FOV;
+}
+
 void SourceEntity::update(sf::Vector2f frameDim)
 {
     this->updateRays(frameDim);
 }
 
-void SourceEntity::renderWalls(sf::RenderTarget* target)
+void SourceEntity::render(sf::RenderTarget* target)
 {
     this->renderRays(target);
 }
