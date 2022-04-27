@@ -92,7 +92,7 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 		float lenght = (*rays)[rayIndex]->getLenght();
 		float lenghtProj = static_cast<float>(cos(abs((*rays)[rayIndex]->getAngleOffset()) / 180 / M_PI) * lenght);
 
-		if ((*rays)[rayIndex]->getOutside()) continue;																							// <---- HERE FIX
+		//if ((*rays)[rayIndex]->getOutside()) continue;
 
 		// Calculate rect height
 		float height = windowSize.y / lenghtProj * wallHeight;
@@ -102,50 +102,52 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 		Boundary* ptrToBound = (*rays)[rayIndex]->getIntersectBound();
 		float deltaFactor = (1 - grayscaleFactor * lenghtProj);
 
-		if (!ptrToBound->isTextured) {
-			sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
-
-			// Texel position and scale
-			(*texel)[0].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY);
-			(*texel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY);
-			(*texel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + height);
-			(*texel)[3].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + height);
-
-			// Texel color
-			sf::Color col = this->applyDistanceToRGB(ptrToBound->getColor(), deltaFactor);
-			for (int i = 0; i < 4; i++) {
-				(*texel)[i].color = col;
-			}
-
-			this->wallVertices.push_back(texel);
-		}
-		else if (height >= TexHeight) {
-			for (int i = 0; i < TexHeight; i++) {
+		if (ptrToBound && !(*rays)[rayIndex]->getOutside()) {
+			if (!ptrToBound->isTextured) {
 				sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
 
 				// Texel position and scale
-				float rectHeight = height / TexHeight;
-
-				(*texel)[0].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + rectHeight * i);
-				(*texel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + rectHeight * i);
-				(*texel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + rectHeight * i + rectHeight);
-				(*texel)[3].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + rectHeight * i + rectHeight);
+				(*texel)[0].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY);
+				(*texel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY);
+				(*texel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + height);
+				(*texel)[3].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + height);
 
 				// Texel color
-				sf::Vector2f inters = (*rays)[rayIndex]->getIntersect();
-
-				sf::Color col = this->applyDistanceToRGB(ptrToBound->getRGB(inters, i), deltaFactor);
-				for (int j = 0; j < 4; j++) {
-					(*texel)[j].color = col;
+				sf::Color col = this->applyDistanceToRGB(ptrToBound->getColor(), deltaFactor);
+				for (int i = 0; i < 4; i++) {
+					(*texel)[i].color = col;
 				}
+
 				this->wallVertices.push_back(texel);
+			}
+			else if (height >= TexHeight) {
+				for (int i = 0; i < TexHeight; i++) {
+					sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
+
+					// Texel position and scale
+					float rectHeight = height / TexHeight;
+
+					(*texel)[0].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + rectHeight * i);
+					(*texel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + rectHeight * i);
+					(*texel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, sizeOffsetY + rectHeight * i + rectHeight);
+					(*texel)[3].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + rectHeight * i + rectHeight);
+
+					// Texel color
+					sf::Vector2f inters = (*rays)[rayIndex]->getIntersect();
+
+					sf::Color col = this->applyDistanceToRGB(ptrToBound->getRGB(inters, i), deltaFactor);
+					for (int j = 0; j < 4; j++) {
+						(*texel)[j].color = col;
+					}
+					this->wallVertices.push_back(texel);
+				}
 			}
 		}
 
 		// floor casting
 		int upperFloorEdge = sizeOffsetY + height;
 
-		if ((unsigned)upperFloorEdge < windowSize.y) {
+		if ((unsigned)upperFloorEdge < windowSize.y && CASTFLOOR) {
 			// Calculate the amount of rays for col
 			int colRays = (windowSize.y - upperFloorEdge) / floorTexelHeight;
 			if (colRays <= 0) colRays = 1;
