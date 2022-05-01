@@ -14,6 +14,8 @@
 
 # define M_PI           3.14159265358979323846  /* pi */
 
+#define CASTFLOOR true
+
 class Cast3DHandler
 {
 private:
@@ -21,6 +23,8 @@ private:
 	float colWidth;
 	float colHeight;
 	float wallHeight;
+
+	float lightSourceAngle;
 
 	int minProjAngle;
 

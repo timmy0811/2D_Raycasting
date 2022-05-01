@@ -31,6 +31,8 @@ void Game::initObjects()
     TileObjects::genRect(&this->bounds, sf::Vector2f(600.f, 350.f), sf::Vector2f(80, 80), this->textures["BRICKS"]);
     TileObjects::genRect(&this->bounds, sf::Vector2f(700.f, 500.f), sf::Vector2f(80, 80), this->textures["COBBLE"]);
 
+    //TileObjects::genWall(&this->bounds, sf::Vector2f(750, 250), sf::Vector2f(300, 700), this->textures["DARK_PLANK"]);
+
     TileObjects::genRect(&this->bounds, sf::Vector2f(300.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Red);
     TileObjects::genRect(&this->bounds, sf::Vector2f(500.f, 100.f), sf::Vector2f(100.f, 100.f), sf::Color::Blue);
 
@@ -104,8 +106,7 @@ void Game::initWindow() {
     this->window3D->setFramerateLimit(30);
 
     //this->sourceHeight = static_cast<int>(this->window3D->getSize().y / 2);
-    this->sourceHeight = -75.f;
-
+    this->sourceHeight = -75;
 }
 
 // Accessors
@@ -231,12 +232,12 @@ void Game::TileObjects::genRect(std::vector<Boundary*>* bounds, sf::Vector2f pos
     bounds->push_back(new Boundary(sf::Vector2f(position.x, position.y + dimensions.y), sf::Vector2f(position.x + dimensions.x, position.y + dimensions.y), texture));
 }
 
-void Game::TileObjects::genWall(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f pointA, sf::Vector2f pointB, sf::Color color)
+void Game::TileObjects::genWall(std::vector<Boundary*>* bounds, sf::Vector2f pointA, sf::Vector2f pointB, sf::Color color)
 {
     bounds->push_back(new Boundary(pointA, pointB, color));
 }
 
-void Game::TileObjects::genWall(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f pointA, sf::Vector2f pointB, sf::Texture* texture)
+void Game::TileObjects::genWall(std::vector<Boundary*>* bounds, sf::Vector2f pointA, sf::Vector2f pointB, sf::Texture* texture)
 {
     bounds->push_back(new Boundary(pointA, pointB, texture));
 }

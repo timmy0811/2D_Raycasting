@@ -8,6 +8,8 @@
 
 #include "Ressources.h"
 
+# define M_PI           3.14159265358979323846  /* pi */
+
 class Boundary
 {
 private:
@@ -34,6 +36,7 @@ public:
 
 	sf::Color getColor();
 	sf::Color getRGB(sf::Vector2f pointOfIntersection, int indexPixelFromTop);
+	float getOrientationFace(sf::Vector2f sourcePos, float lightAngle);
 
 	// Methods
 	void render2D(sf::RenderTarget* target);

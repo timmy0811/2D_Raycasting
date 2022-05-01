@@ -31,6 +31,7 @@ Floor* Cast3DHandler::getIntersectFloorTile(sf::Vector3f worldPos)
 Cast3DHandler::Cast3DHandler(SourceEntity* entity, sf::RenderTarget* window, float wallHeight, int* virtualHeight, int floorCastingRes, std::vector<Floor*>* floorRef)
 	:entityRef(entity), colHeight(0), wallHeight(wallHeight), virtualHeight(virtualHeight), floorCastingRes(floorCastingRes), floorRef(floorRef)
 {
+	this->lightSourceAngle = 45.f;
 	this->minProjAngle = 45;
 	this->colWidth = window->getSize().x / static_cast<float>(entity->resolution);
 }
@@ -62,6 +63,9 @@ void Cast3DHandler::renderFloor(sf::RenderTarget* target)
 
 void Cast3DHandler::translate(sf::RenderTarget* target)
 {
+	/*this->lightSourceAngle += 2.0f;
+	if (this->lightSourceAngle >= 360) this->lightSourceAngle = 0.f;*/
+
 	sf::Vector2u windowSize = target->getSize();
 	sf::Vector2i sourcePosition = sf::Vector2i(this->entityRef->getPosition());		// Das funktioniert?
 
@@ -103,6 +107,8 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 		float deltaFactor = (1 - grayscaleFactor * lenghtProj);
 
 		if (ptrToBound && !(*rays)[rayIndex]->getOutside()) {
+			float directionFactor = ptrToBound->getOrientationFace(sf::Vector2f((float)sourcePosition.x, (float)sourcePosition.y), this->lightSourceAngle);
+
 			if (!ptrToBound->isTextured) {
 				sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
 
@@ -114,6 +120,10 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 
 				// Texel color
 				sf::Color col = this->applyDistanceToRGB(ptrToBound->getColor(), deltaFactor);
+				float colFcr = 0.5f + directionFactor / 2.f;
+				col.r *= colFcr;
+				col.g *= colFcr;
+				col.b *= colFcr;
 				for (int i = 0; i < 4; i++) {
 					(*texel)[i].color = col;
 				}
@@ -121,6 +131,8 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 				this->wallVertices.push_back(texel);
 			}
 			else if (height >= TexHeight) {
+				sf::Vector2f inters = (*rays)[rayIndex]->getIntersect();
+
 				for (int i = 0; i < TexHeight; i++) {
 					sf::VertexArray* texel = new sf::VertexArray(sf::Quads, 4);
 
@@ -133,9 +145,11 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 					(*texel)[3].position = sf::Vector2f(this->colWidth * rayIndex, sizeOffsetY + rectHeight * i + rectHeight);
 
 					// Texel color
-					sf::Vector2f inters = (*rays)[rayIndex]->getIntersect();
-
 					sf::Color col = this->applyDistanceToRGB(ptrToBound->getRGB(inters, i), deltaFactor);
+					float colFcr = 0.5f + directionFactor / 2.f;
+					col.r *= colFcr;
+					col.g *= colFcr;
+					col.b *= colFcr;
 					for (int j = 0; j < 4; j++) {
 						(*texel)[j].color = col;
 					}
@@ -145,7 +159,7 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 		}
 
 		// floor casting
-		int upperFloorEdge = sizeOffsetY + height;
+		int upperFloorEdge = (int)(sizeOffsetY + height);
 
 		if ((unsigned)upperFloorEdge < windowSize.y && CASTFLOOR) {
 			// Calculate the amount of rays for col
@@ -166,9 +180,9 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 				float angleBeta = 90 - ((floorCastingRes - colRays) * anglePerRayY + floorIndexY * anglePerRayY + anglePerRayY / 2.f);							// angle pointing to floor
 
 				sf::Vector3f rayVector = sf::Vector3f(
-					cos(angleAlpha * M_PI / 180),
-					sin(angleAlpha * M_PI / 180),
-					-cos(angleBeta * M_PI / 180)
+					cos(angleAlpha * (float)M_PI / 180),
+					sin(angleAlpha * (float)M_PI / 180),
+					-cos(angleBeta * (float)M_PI / 180)
 				);
 
 				// r factor of vector
@@ -194,10 +208,10 @@ void Cast3DHandler::translate(sf::RenderTarget* target)
 
 				sf::VertexArray* floorTexel = new sf::VertexArray(sf::Quads, 4);
 
-				(*floorTexel)[0].position = sf::Vector2f(this->colWidth * rayIndex, startAt + floorTexelHeight * floorIndexY);
-				(*floorTexel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, startAt + floorTexelHeight * floorIndexY);
-				(*floorTexel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, startAt + floorTexelHeight * floorIndexY + floorTexelHeight);
-				(*floorTexel)[3].position = sf::Vector2f(this->colWidth * rayIndex, startAt + floorTexelHeight * floorIndexY + floorTexelHeight);
+				(*floorTexel)[0].position = sf::Vector2f(this->colWidth * rayIndex, (float)(startAt + floorTexelHeight * floorIndexY));
+				(*floorTexel)[1].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, (float)(startAt + floorTexelHeight * floorIndexY));
+				(*floorTexel)[2].position = sf::Vector2f(this->colWidth * rayIndex + this->colWidth, (float)(startAt + floorTexelHeight * floorIndexY + floorTexelHeight));
+				(*floorTexel)[3].position = sf::Vector2f(this->colWidth * rayIndex, (float)(startAt + floorTexelHeight * floorIndexY + floorTexelHeight));
 
 				for (int j = 0; j < 4; j++) {
 					(*floorTexel)[j].color = texelColor;

@@ -76,8 +76,8 @@ private:
 		static void genRect(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f dimensions, sf::Color color);
 		static void genRect(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f dimensions, sf::Texture* texture);
 
-		static void genWall(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f pointA, sf::Vector2f pointB, sf::Color color);
-		static void genWall(std::vector<Boundary*>* bounds, sf::Vector2f position, sf::Vector2f pointA, sf::Vector2f pointB, sf::Texture* texture);
+		static void genWall(std::vector<Boundary*>* bounds, sf::Vector2f pointA, sf::Vector2f pointB, sf::Color color);
+		static void genWall(std::vector<Boundary*>* bounds, sf::Vector2f pointA, sf::Vector2f pointB, sf::Texture* texture);
 	};
 
 public:
