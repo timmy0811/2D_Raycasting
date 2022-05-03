@@ -24,7 +24,7 @@ void Game::initCastHandler()
 
 void Game::initObjects()
 {
-    this->entity = new SourceEntity(60.f, 128, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
+    this->entity = new SourceEntity(60.f, 64, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
 
     // Map construction
     // Bounds
@@ -39,7 +39,7 @@ void Game::initObjects()
     //TileObjects::genRect(&this->bounds, sf::Vector2f(0.f, 0.f), sf::Vector2f(static_cast<float>(WIDTH2D), static_cast<float>(HEIGHT2D)), sf::Color::Magenta);
 
     // Floor
-    this->floorTiles.push_back(new Floor(sf::Vector2f(400.f, 400.f), sf::Vector2f(WIDTH2D / 4, HEIGHT2D / 4), this->textures["DARK_PLANK"]));
+    this->floorTiles.push_back(new Floor(sf::Vector2f(0.f, 0.f), sf::Vector2f(WIDTH2D, HEIGHT2D), this->textures["SAND"]));
     }
 
 sf::Color Game::randColor()

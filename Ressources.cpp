@@ -18,5 +18,11 @@ void Res::initTextures(std::map<std::string, sf::Texture*>* textures)
     tex["DARK_PLANK"] = new sf::Texture();
     tex["DARK_PLANK"]->loadFromFile("Assets/block/dark_oak_planks.png");
 
+    tex["SAND"] = new sf::Texture();
+    tex["SAND"]->loadFromFile("Assets/block/sand.png");
+
+    tex["RED_SAND"] = new sf::Texture();
+    tex["RED_SAND"]->loadFromFile("Assets/block/red_sand.png");
+
     *textures = tex;
 }
