@@ -22,60 +22,78 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{2fe7e3ed-31d8-4ef5-8d14-c4d93c2814ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\World-Objects">
+      <UniqueIdentifier>{ef556d1f-d94e-43f3-bd1d-b010b21a17fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\World-Objects">
+      <UniqueIdentifier>{37f9f580-2c8b-4dbc-89b4-b21f9e57c4df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Render">
+      <UniqueIdentifier>{c4804728-776e-4a2f-badf-37cc2dd4701e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game">
+      <UniqueIdentifier>{5350f2b7-6f1d-4284-9ef0-58b3e7cd7a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Render">
+      <UniqueIdentifier>{faa33171-6096-4001-806d-6a33ba096d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Game">
+      <UniqueIdentifier>{62e46a4e-db16-46a9-a664-ef007b78447d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Boundary.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceEntity.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Cast3DHandler.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Ressources.cpp">
       <Filter>Quelldateien\Imports</Filter>
     </ClCompile>
+    <ClCompile Include="Boundary.cpp">
+      <Filter>Quelldateien\World-Objects</Filter>
+    </ClCompile>
     <ClCompile Include="Floor.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\World-Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Quelldateien\World-Objects</Filter>
     </ClCompile>
     <ClCompile Include="Skybox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\World-Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Cast3DHandler.cpp">
+      <Filter>Quelldateien\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceEntity.cpp">
+      <Filter>Quelldateien\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Quelldateien\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Quelldateien\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Boundary.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceEntity.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Cast3DHandler.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Ressources.h">
       <Filter>Headerdateien\Imports</Filter>
     </ClInclude>
+    <ClInclude Include="Boundary.h">
+      <Filter>Headerdateien\World-Objects</Filter>
+    </ClInclude>
     <ClInclude Include="Floor.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\World-Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Headerdateien\World-Objects</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\World-Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Cast3DHandler.h">
+      <Filter>Headerdateien\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceEntity.h">
+      <Filter>Headerdateien\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Headerdateien\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
