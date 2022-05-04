@@ -24,6 +24,7 @@ void Game::initCastHandler()
 
 void Game::initObjects()
 {
+    this->skybox = new Skybox(Res::getSkybox());
     this->entity = new SourceEntity(60.f, 64, sf::Vector2f(300, 500), &this->bounds, sf::Color::Blue);
 
     // Map construction
@@ -93,7 +94,7 @@ void Game::initWindow() {
     this->videoMode2D.width = WIDTH2D;
 
     this->videoMode3D.height = 1000;
-    this->videoMode3D.width = 1280;
+    this->videoMode3D.width = 1200;
 
     // Window for 2D Raycasting
     if (SHOW2D) {
@@ -152,9 +153,11 @@ void Game::pollEvents() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         this->entity->move(Move_Dir::DEFAULT, -ROTATIONSPEED * this->dt, 0);
+        this->skybox->move(ROTATIONSPEED * this->dt * 20.f);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         this->entity->move(Move_Dir::DEFAULT, ROTATIONSPEED * this->dt, 0);
+        this->skybox->move(-ROTATIONSPEED * this->dt * 20.f);
     }
 
     // Increase virtual height
@@ -176,6 +179,8 @@ void Game::update() {
 
     this->entity->update(sf::Vector2f(WIDTH2D, HEIGHT2D));
     this->handler3D->translate(this->window3D);
+
+    this->skybox->update();
 }
 
 // main render method
@@ -196,6 +201,8 @@ void  Game::render() {
         this->window2D->display();
     }
     
+    this->skybox->render(this->window3D);
+
     this->handler3D->renderFloor(this->window3D);
     this->handler3D->render(this->window3D);
 

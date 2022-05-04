@@ -17,4 +17,5 @@ struct Res {
 
 	// Functions
 	static void initTextures(std::map<std::string, sf::Texture*>* textures);
+	static sf::Texture* getSkybox();
 };

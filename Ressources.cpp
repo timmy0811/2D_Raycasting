@@ -26,3 +26,10 @@ void Res::initTextures(std::map<std::string, sf::Texture*>* textures)
 
     *textures = tex;
 }
+
+sf::Texture* Res::getSkybox()
+{
+    sf::Texture* tempTex = new sf::Texture();
+    tempTex->loadFromFile("Assets/sky2.png");
+    return tempTex;
+}

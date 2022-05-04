@@ -9,12 +9,15 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 
+#include "Ressources.h"
+
+#include "Ray.h"
 #include "Boundary.h"
 #include "Floor.h"
-#include "Ray.h"
+#include "Skybox.h"
+
 #include "SourceEntity.h"
 #include "Cast3DHandler.h"
-#include "Ressources.h"
 
 #define MOVEMENTESPEED 100
 #define ROTATIONSPEED 45
@@ -68,6 +71,7 @@ private:
 	// Game objects
 	Cast3DHandler* handler3D;
 	SourceEntity* entity;
+	Skybox* skybox;
 
 	std::vector<Floor*> floorTiles;
 	std::vector<Boundary*> bounds;

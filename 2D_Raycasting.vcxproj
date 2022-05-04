@@ -152,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Ressources.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SourceEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Ressources.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SourceEntity.h" />
   </ItemGroup>
   <ItemGroup>
